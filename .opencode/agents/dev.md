@@ -2,7 +2,7 @@
 name: dev
 description: Implementa tarefas de funcionalidades lendo o PRD/TechSpec, executando implementação com testes e verificações de qualidade, e marcando tarefas como concluídas. Invoke com o slug da funcionalidade e número da tarefa.
 model: inherit
-color: blue
+color: "#3b82f6"
 mode: primary
 temperature: 0.2
 permission:

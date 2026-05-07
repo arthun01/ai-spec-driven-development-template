@@ -2,7 +2,7 @@
 name: reviewer
 description: Realiza revisão de código de um Pull Request completo verificando aderência ao PRD/TechSpec, qualidade de código e testes. Publica comentários inline e parecer final no PR via GitHub MCP. Invoke com o número do PR.
 model: inherit
-color: green
+color: "#22c55e"
 mode: primary
 temperature: 0.1
 permission:
