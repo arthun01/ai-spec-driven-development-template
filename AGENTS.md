@@ -101,10 +101,11 @@ bin/setup                                    # Setup completo
 
 O projeto segue **AI-Specification-Driven Development**:
 
-- **Documentação:** `ai-sdd/` — product map, vision, roadmap
-- **Tasks:** `tasks/prd-[feature-slug]/` — PRD + techspec por funcionalidade
-- **Commands:** `.opencode/commands/` — automação (PRD, techspec, tasks, review)
-- **Skills:** `.opencode/skills/` — padrões Rails (CRUD, auth, testing, Turbo, Stimulus, etc.)
+- **Sistema:** `ai-sdd/system/` — vision, product_map, roadmap
+- **Funcionalidades:** `ai-sdd/prd-[feature-slug]/` — PRD + design + techspec + tasks por funcionalidade
+- **Commands:** `.opencode/commands/` — automação de planejamento (vision, product map, roadmap, PRD, design, techspec, tasks)
+- **Agents:** `.opencode/agents/` — execução (`dev` implementa tarefas, `reviewer` revisa PRs)
+- **Skills:** `.opencode/skills/` — padrões Rails (CRUD, auth, testing, Turbo, Stimulus, etc.) e procedimentos AI-SDD
 - **Rules:** `.opencode/rules/` — convenções por camada (models, controllers, views, etc.)
 
 Veja `.opencode/rules/` para convenções detalhadas por camada (models, controllers, views, testing, migrations, jobs, mailers, multi-tenancy, style).

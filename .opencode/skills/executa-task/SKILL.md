@@ -13,16 +13,19 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 3. Leia o PRD em `./ai-sdd/prd-[feature-slug]/prd.md` para contexto de negócio.
 4. Leia a Tech Spec em `./ai-sdd/prd-[feature-slug]/techspec.md` para decisões técnicas.
 5. Identifique dependências de tarefas anteriores e verifique se estão concluídas em `tasks.md`.
-6. **[OPCIONAL — Paper]** Verifique se existe `./ai-sdd/prd-[feature-slug]/paper-artboards.md`.
-   - Se existir E a task tiver referências de design (seção "Design de Referência (Paper)"), marque `usa_paper = true`.
-   - Se não existir ou a task não referenciar artboards, marque `usa_paper = false` e prossiga normalmente.
+6. **[Design — ler design.md]** Verifique `./ai-sdd/prd-[feature-slug]/design.md`:
+   - Se não existir ou estiver marcado como `N/A`: defina `has_design = false`. Para tasks com UI, gere views via `rails-visual-design` + `rails-components` (sem design pré-definido).
+   - Se existir com telas: defina `has_design = true`. Leia a tabela `## Telas`. Para cada linha relevante à task, identifique o modo pela coluna **Origem**:
+     - Origem = `Paper` → tela em **modo Paper** → será usada pela `paper-to-rails` (o ID do artboard está na coluna Referência).
+     - Origem externa (`Figma`, `Sketch`, `Screenshot`, `Texto`, etc.) → tela em **modo externo** → a Referência (URL, path, ou apontador para "## Descrições") será usada como guia visual pelo `rails-visual-design`.
 7. NÃO pule nenhuma dessas leituras — a tarefa será invalidada sem contexto completo.
 
 **Passo 2: Carregar Skills e Padrões (Obrigatório)**
 1. Leia `AGENTS.md` para reforçar convenções, comandos e padrões do projeto.
 2. Identifique skills em `.opencode/skills/` relevantes para as tecnologias da tarefa.
    - Se a task tem UI: sempre carregue `rails-visual-design` e `rails-components`.
-   - **[OPCIONAL — Paper]** Se `usa_paper = true`: carregue também `paper-to-rails`.
+   - Se alguma tela relevante à task tem Origem = Paper: carregue também `paper-to-rails`.
+   - Para telas com Origem externa: use a coluna Referência do `design.md` (URLs, paths ou apontadores para "## Descrições") como referência visual durante a implementação (sem skill dedicada — `rails-visual-design` guiado pelo design externo).
 3. Consulte documentação de frameworks e bibliotecas envolvidas quando necessário (use Context7 MCP).
 
 **Passo 3: Análise da Tarefa (Obrigatório)**
@@ -51,9 +54,10 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
    - Adicione índices em colunas frequentemente consultadas.
    - Use strong parameters em controllers.
    - Use `ApplicationRecord`, `ApplicationController`, `ApplicationJob` como base.
-3. **[OPCIONAL — Paper]** Se `usa_paper = true`: execute a skill `paper-to-rails` para gerar as views.
-   - A skill tentará conectar ao Paper MCP. Se falhar, informe o usuário e gere views via `rails-visual-design`.
-   - Se `usa_paper = false`: gere views seguindo `rails-visual-design` + `rails-components`.
+3. **[Geração de Views — por tela, conforme o modo em design.md]**:
+   - Tela com Origem = Paper → execute `paper-to-rails` para essa tela (converte artboard em ERB + i18n). Se o Paper MCP falhar em runtime, faça fallback para `rails-visual-design` usando os screenshots eventualmente já capturados.
+   - Tela com Origem externa → gere via `rails-visual-design` + `rails-components` **usando a Referência do `design.md` como guia visual** (abra/inspecione URLs e imagens listadas; cite a referência no comentário do PR).
+   - Sem `design.md` (ou status N/A) → gere via `rails-visual-design` + `rails-components` sem design pré-definido (apenas para tasks sem UI ou quando o usuário confirmou pular o design).
 4. Siga a Tech Spec para decisões de arquitetura e design.
 5. Referencie requisitos do PRD (RF-XXX) nos comentários quando relevante.
 
@@ -97,11 +101,11 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 - [ ] PRD, Tech Spec e arquivo da tarefa lidos completamente.
 - [ ] Dependências de tarefas anteriores verificadas.
 - [ ] Skills e AGENTS.md consultados.
-- [ ] `paper-artboards.md` verificado (detectar se tarefa usa Paper).
+- [ ] `design.md` lido (ou ausência justificada para tasks sem UI); modo identificado por tela.
 - [ ] Plano de abordagem definido.
 - [ ] Implementação segue padrões Rails (convenções, i18n, strong params).
 - [ ] Implementação segue a Tech Spec.
-- [ ] Views geradas via `paper-to-rails` (se Paper disponível) ou `rails-visual-design` (fallback).
+- [ ] Views geradas por tela conforme o modo em `design.md`: `paper-to-rails` (telas Paper), `rails-visual-design` guiado por referências externas, ou `rails-visual-design` puro (sem design).
 - [ ] Testes unitários criados e passando.
 - [ ] Testes de integração criados e passando.
 - [ ] Testes E2E criados quando aplicável.

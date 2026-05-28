@@ -11,9 +11,9 @@ description: Converte PRD e Tech Spec em uma lista detalhada e sequencial de tar
 1. Confirme que o slug da funcionalidade foi fornecido.
 2. Verifique se o PRD existe em `ai-sdd/prd-[feature-slug]/prd.md`. Se ausente, interrompa e direcione o usuário para a skill `cria-prd`.
 3. Verifique se o Tech Spec existe em `ai-sdd/prd-[feature-slug]/techspec.md`. Se ausente, interrompa e direcione o usuário para a skill `cria-techspec`.
-4. **[OPCIONAL — Paper]** Verifique se existe `ai-sdd/prd-[feature-slug]/paper-artboards.md`.
-   - Se existir: leia-o e mantenha o mapeamento de artboards disponível para usar nas tasks de UI (Passo 4).
-   - Se não existir: prossiga normalmente, sem referências de design.
+4. **[RECOMENDADO — Design]** Verifique se existe `ai-sdd/prd-[feature-slug]/design.md`.
+   - Se existir: leia a tabela `## Telas`. Mantenha o mapeamento (nome da tela, RFs, Origem, Referência) disponível para usar nas tasks de UI (Passo 4).
+   - Se não existir: prossiga, mas sinalize que tasks com UI ficarão sem referência visual. Sugira ao usuário rodar `/cria-design` antes para features com UI.
 
 **Passo 2: Analisar PRD e Tech Spec (Obrigatório)**
 1. Leia o PRD completamente para extrair:
@@ -54,13 +54,14 @@ description: Converte PRD e Tech Spec em uma lista detalhada e sequencial de tar
    - **Testes**: Inclua testes como subtarefas dentro de cada tarefa (unit, integração, E2E quando aplicável).
    - **Critérios de Sucesso**: Cada tarefa deve ter resultados mensuráveis e verificáveis.
    - **Arquivos**: Liste arquivos que serão criados ou modificados.
-   - **[OPCIONAL — Paper]** Para tasks que envolvam criação de views/UI: se `paper-artboards.md` existir, adicione uma seção ao arquivo da task:
+   - **[Design]** Para tasks que envolvam criação de views/UI: se `design.md` existir, adicione uma seção ao arquivo da task listando as telas relevantes àquela task. Cite o número da linha na tabela, a Origem e a Referência:
      ```markdown
-     ## Design de Referência (Paper)
-     - Artboard: [nome do artboard correspondente]
-     - Artboard ID: [id do artboard]
+     ## Design de Referência
+     Ver `ai-sdd/prd-[slug]/design.md`. Telas desta task:
+     - #1 Lista de Pedidos — Origem: Paper — Ref: `abc-123`
+     - #2 Modal de Confirmação — Origem: Figma — Ref: https://figma.com/...
      ```
-     Use o mapeamento de `paper-artboards.md` para identificar os artboards corretos por RF.
+     Use o mapeamento de `design.md` para identificar as telas corretas por RF.
 6. Se os diretórios de saída já contiverem arquivos, confirme com o usuário antes de sobrescrever.
 
 **Passo 5: Relatar Resultados**
@@ -78,7 +79,7 @@ description: Converte PRD e Tech Spec em uma lista detalhada e sequencial de tar
 
 ## Lista de Verificação de Qualidade
 - [ ] PRD e Tech Spec lidos e analisados completamente.
-- [ ] `paper-artboards.md` verificado (adicionar referências de design nas tasks de UI se existir).
+- [ ] `design.md` verificado (adicionar referências de design nas tasks de UI se existir).
 - [ ] Requisitos funcionais (RF-XXX) mapeados para tarefas.
 - [ ] Lista de tarefas de alto nível aprovada pelo usuário.
 - [ ] Arquivos de tarefas gerados usando templates.
@@ -86,7 +87,7 @@ description: Converte PRD e Tech Spec em uma lista detalhada e sequencial de tar
 - [ ] Cada tarefa tem testes (unit, integração e/ou E2E).
 - [ ] Cada tarefa tem critérios de sucesso mensuráveis.
 - [ ] Cada tarefa lista arquivos relevantes.
-- [ ] Tasks de UI com Paper: seção "Design de Referência (Paper)" incluída.
+- [ ] Tasks de UI: seção "Design de Referência" incluída apontando para `design.md` com as telas relevantes.
 - [ ] Dependências entre tarefas respeitadas na ordenação.
 - [ ] Sem detalhes de implementação copiados da Tech Spec.
 - [ ] Arquivos salvos em `./ai-sdd/prd-[feature-slug]/`.

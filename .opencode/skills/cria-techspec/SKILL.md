@@ -10,9 +10,9 @@ description: Cria Especificações Técnicas a partir de um PRD existente, tradu
 **Passo 1: Validar Pré-requisitos**
 1. Confirme que o slug da funcionalidade foi fornecido.
 2. Verifique se o PRD existe em `ai-sdd/prd-[feature-slug]/prd.md`. Se ausente, interrompa e direcione o usuário para a skill `cria-prd`.
-3. **[OPCIONAL — Paper]** Verifique se existe `ai-sdd/prd-[feature-slug]/paper-artboards.md`.
-   - Se existir: leia-o e informe ao usuário que os artboards serão utilizados como referência visual na spec.
-   - Se não existir: prossiga normalmente. Sugira ao usuário executar `design-in-paper` antes se quiser definir o design antes da spec (opcional).
+3. **[RECOMENDADO — Design]** Verifique a existência de `ai-sdd/prd-[feature-slug]/design.md`:
+   - **Existe** — leia o arquivo completamente. Para cada linha da tabela `## Telas`, identifique o modo pela coluna **Origem** (`Paper` ou uma ferramenta externa). Se o cabeçalho marca status `N/A`, a feature foi explicitamente declarada sem UI.
+   - **Não existe** — Para features com UI, **interrompa e sugira ao usuário** executar `/cria-design` antes da techspec. Para features sem UI, prossiga somente após confirmação explícita do usuário.
 4. Verifique a existência de documentos de contexto (não bloqueia, mas enriquece a spec):
    - `./ai-sdd/system/vision.md` — propósito e proposta de valor.
    - `./ai-sdd/system/product_map.md` — fluxos de usuário relacionados.
@@ -67,7 +67,10 @@ description: Cria Especificações Técnicas a partir de um PRD existente, tradu
 **Passo 8: Gerar Tech Spec (Obrigatório)**
 1. Leia o template em `assets/techspec-template.md`.
 2. Siga a estrutura do template sem desvios — cada seção deve ser preenchida.
-3. **[OPCIONAL — Paper]** Se `paper-artboards.md` existir: inclua uma seção "Design de Referência (Paper)" na spec com a tabela de artboards e IDs. As decisões de UI/UX da spec devem referenciar os artboards aprovados.
+3. **[Design — incluir seção "Design de Referência"]**:
+   - Se `design.md` existir e contiver telas: inclua a seção "Design de Referência" citando `ai-sdd/prd-[feature-slug]/design.md` e listando cada tela com sua origem (Paper artboard ID ou referência externa).
+   - Se `design.md` marca status `N/A`: pule a seção e registre na justificativa que a feature não tem UI.
+   - Em qualquer caso com design: as decisões de UI/UX da spec devem referenciar o design aprovado e não inventar telas adicionais sem consulta ao usuário.
 4. Regras de redação:
    - Foque no **COMO**, não no O QUÊ (o PRD tem o que/porquê).
    - NÃO repita requisitos funcionais do PRD — referencie-os pelo código (RF-XXX).
@@ -97,14 +100,15 @@ description: Cria Especificações Técnicas a partir de um PRD existente, tradu
 
 ## Lista de Verificação de Qualidade
 - [ ] PRD lido e requisitos principais extraídos.
-- [ ] `paper-artboards.md` verificado (usar como referência visual se existir).
+- [ ] Design verificado: `design.md` lido (ou ausência justificada pelo usuário).
+- [ ] Para features com UI sem `design.md`: usuário foi orientado a executar `/cria-design` ou justificou pular.
 - [ ] Base de código analisada em profundidade.
 - [ ] Pesquisa web concluída (mín. 3 buscas).
 - [ ] Perguntas de esclarecimento concluídas e respondidas.
 - [ ] Plano arquitetural apresentado e aprovado pelo usuário.
 - [ ] Skills e AGENTS.md verificados para conformidade.
 - [ ] Tech Spec gerada usando o template.
-- [ ] Se Paper usado: seção "Design de Referência (Paper)" incluída na spec.
+- [ ] Seção "Design de Referência" incluída quando `design.md` contém telas.
 - [ ] Sem requisitos funcionais repetidos do PRD.
 - [ ] Interfaces e exemplos de código concisos.
 - [ ] Estratégia de testes definida (unit, integração, E2E).

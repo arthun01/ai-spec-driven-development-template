@@ -56,7 +56,27 @@ cria-techspec     ← usa artboards aprovados como referência
    - Requisitos funcionais com impacto visual (RF-XXX)
    - Tipo de usuário e contexto de uso
    - Fora de escopo
-otimo
+
+### Passo 1.1: Detectar Modo (Criação vs Edição)
+
+1. Verifique se `ai-sdd/prd-[feature-slug]/design.md` já existe.
+   - **Não existe** → modo criação. Prossiga normalmente para o Passo 2.
+   - **Existe** → modo edição. Leia a tabela `## Telas` para conhecer as linhas atuais (Origem
+     `Paper` e/ou externas).
+2. Em modo edição, pergunte ao usuário o que deseja fazer:
+   - **Adicionar telas** → planejar novos artboards complementares aos existentes.
+   - **Atualizar telas existentes** → identificar quais linhas com Origem = Paper serão
+     modificadas; use `get_screenshot` para visualizar o estado atual antes de editar.
+   - **Migrar tela externa para Paper** → para uma linha que hoje tem Origem externa, criar
+     um artboard novo e atualizar a linha para Origem = Paper com a nova Referência.
+   - **Recriar do zero** → confirme com o usuário (operação destrutiva); arquive ou ignore
+     os artboards antigos no Paper antes de criar novos.
+3. Em modo edição, ao alterar um artboard existente:
+   - Use `start_working_on_nodes` no artboard alvo
+   - Modifique via `write_html`, `update_node`, ou ferramentas pontuais do Paper MCP
+   - Capture `get_screenshot` para confirmar o resultado
+   - Atualize a entrada correspondente em `design.md` (preserve IDs, atualize RFs cobertos se mudou)
+
 ### Passo 2: Ler Design System (se existir)
 
 1. Verifique se existe `app/assets/stylesheets/application.css` com `@theme`
@@ -191,20 +211,29 @@ O HTML escrito no Paper deve ser **otimizado para conversão Rails**:
 </div>
 ```
 
-### Passo 7: Registrar Artboards na Techspec
+### Passo 7: Registrar Artboards em design.md
 
-Após criar os artboards, gere um bloco Markdown para ser adicionado à techspec:
+Após criar/atualizar os artboards, escreva ou atualize `ai-sdd/prd-[feature-slug]/design.md`
+seguindo o template em `.opencode/skills/cria-design/assets/design-template.md`.
+
+Adicione uma linha na tabela `## Telas` para cada artboard com **Origem = Paper**. A coluna
+**Referência** combina o ID retornado pelo MCP com o nome do artboard:
 
 ```markdown
-## Referências de Design (Paper)
+## Telas
 
-| Artboard | Artboard ID | Telas | RF Cobertos |
-|----------|------------|-------|-------------|
-| orders / Lista de Pedidos / desktop | [ID retornado pelo MCP] | index | RF-01, RF-02 |
-| orders / Modal de Confirmação / desktop | [ID] | modal | RF-04 |
+| # | Tela | RF cobertos | Breakpoint | Origem | Referência |
+|---|------|-------------|-----------|--------|-----------|
+| 1 | Lista de Pedidos | RF-01, RF-02 | desktop | Paper | `<artboard-id>` — `orders / Lista de Pedidos / desktop` |
+| 2 | Modal de Confirmação | RF-04 | desktop | Paper | `<artboard-id>` — `orders / Modal de Confirmação / desktop` |
 ```
 
-Salve este bloco em: `ai-sdd/prd-[feature-slug]/paper-artboards.md`
+**Em modo edição:**
+- Preserve linhas existentes que não foram alteradas (incluindo telas com Origem externa
+  que permaneceram em outra ferramenta).
+- Atualize apenas as linhas correspondentes aos artboards modificados.
+- Mantenha o campo "Ferramenta principal" do cabeçalho coerente (se a feature mistura origens,
+  use "Paper Desktop + [outra]").
 
 ---
 
@@ -224,13 +253,15 @@ Salve este bloco em: `ai-sdd/prd-[feature-slug]/paper-artboards.md`
 
 - [ ] Paper MCP verificado e conectado
 - [ ] PRD lido completamente
+- [ ] Modo detectado: criação vs edição (verificou `design.md` existente)
 - [ ] Design system do projeto consultado
-- [ ] Lista de artboards aprovada pelo usuário
-- [ ] Artboards criados com layouts flex
+- [ ] Lista de artboards aprovada pelo usuário (novos e/ou atualizações)
+- [ ] Artboards criados/atualizados com layouts flex
 - [ ] Conteúdo real (não Lorem Ipsum)
 - [ ] Layers nomeadas semanticamente
 - [ ] Screenshots verificados com `get_screenshot`
-- [ ] `paper-artboards.md` gerado com IDs e RF correspondentes
+- [ ] `design.md` gerado/atualizado com linhas Origem = Paper na tabela e RFs correspondentes
+- [ ] Em edição: entradas externas pré-existentes foram preservadas
 
 ---
 
@@ -243,4 +274,4 @@ Após criar os artboards, informe:
 > 2. Ajuste espaçamento, cores e hierarquia visualmente conforme necessário
 > 3. Quando aprovados, prossiga com `cria-techspec [feature-slug]`
 >
-> Os artboards estão documentados em `ai-sdd/prd-[feature-slug]/paper-artboards.md`
+> Os artboards estão documentados em `ai-sdd/prd-[feature-slug]/design.md`

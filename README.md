@@ -11,7 +11,7 @@
 Em vez de pedir para a IA "criar uma feature", você segue um fluxo controlado:
 
 ```
-Vision → Product Map → Roadmap → PRD → Tech Spec → Tasks → Implementação → Review
+Vision → Product Map → Roadmap → PRD → Design → Tech Spec → Tasks → Implementação → Review
 ```
 
 Cada etapa gera um documento que alimenta a próxima, garantindo rastreabilidade, consistência e qualidade.
@@ -25,15 +25,17 @@ Cada etapa gera um documento que alimenta a próxima, garantindo rastreabilidade
 ├── AGENTS.md                        # Diretrizes de desenvolvimento (adapte ao seu projeto)
 ├── README.md                        # Este arquivo
 └── .opencode/
-    ├── commands/                     # Comandos de automação (atalhos para skills)
+    ├── commands/                     # Slash commands para a fase de planejamento
     │   ├── cria-vision.md           # /cria-vision — cria documento de visão
     │   ├── cria-product-map.md      # /cria-product-map — mapeia fluxos de usuário
     │   ├── cria-roadmap.md          # /cria-roadmap — organiza fases de implementação
     │   ├── cria-prd.md              # /cria-prd — cria PRD de funcionalidade
+    │   ├── cria-design.md           # /cria-design — cria/atualiza protótipo visual
     │   ├── cria-techspec.md         # /cria-techspec — cria especificação técnica
-    │   ├── cria-tasks.md            # /cria-tasks — decompõe em tarefas
-    │   ├── executar-task.md         # /executar-task — implementa uma tarefa
-    │   └── executar-review.md       # /executar-review — code review via GitHub PR
+    │   └── cria-tasks.md            # /cria-tasks — decompõe em tarefas
+    ├── agents/                       # Subagents para a fase de execução
+    │   ├── dev.md                   # Implementa tarefas (aciona executa-task)
+    │   └── reviewer.md              # Revisa PRs (aciona executa-review)
     └── skills/                       # Skills com procedimentos detalhados
         ├── cria-vision/             # Documento de visão do produto
         ├── cria-product-map/        # Mapa de fluxos de usuário
@@ -41,6 +43,12 @@ Cada etapa gera um documento que alimenta a próxima, garantindo rastreabilidade
         ├── cria-prd/                # PRD (Product Requirements Document)
         │   └── assets/
         │       └── prd-template.md
+        ├── cria-design/             # Orquestrador de design
+        │   └── assets/
+        │       └── design-template.md
+        ├── design-in-paper/         # Modo Paper (delegada por cria-design)
+        ├── paper-to-rails/          # Converte artboards Paper em ERB + i18n
+        ├── mcp-paper/               # Referência das tools do Paper MCP
         ├── cria-techspec/           # Especificação técnica
         │   └── assets/
         │       └── techspec-template.md
@@ -66,6 +74,7 @@ ai-sdd/
 │   └── roadmap.md                   # Roadmap de fases
 └── prd-[feature-slug]/              # Um diretório por funcionalidade
     ├── prd.md                       # Requisitos de produto
+    ├── design.md                    # Protótipo visual da feature
     ├── techspec.md                  # Especificação técnica
     ├── tasks.md                     # Resumo de tarefas
     └── tasks/                       # Tarefas individuais
@@ -98,20 +107,21 @@ O `AGENTS.md` vem pré-configurado para a stack **Rails 8.1 + Ruby 4.0.2 + Postg
 
 ### 3. Execute o fluxo AI-SDD
 
-Use os comandos na ordem do fluxo. No [OpenCode](https://github.com/nicholasgriffintn/opencode), execute como slash commands:
+A fase de **planejamento** usa slash commands. A fase de **execução** usa subagents dedicados.
 
-| Etapa | Comando | O que faz |
+| Etapa | Gatilho | O que faz |
 |-------|---------|-----------|
 | 1 | `/cria-vision` | Define problema, público e proposta de valor |
 | 2 | `/cria-product-map` | Mapeia fluxos de usuário por persona |
 | 3 | `/cria-roadmap` | Organiza implementação em fases |
 | 4 | `/cria-prd` | Cria PRD para uma funcionalidade |
-| 5 | `/cria-techspec` | Traduz PRD em decisões arquiteturais |
-| 6 | `/cria-tasks` | Decompõe em tarefas incrementais |
-| 7 | `/executar-task` | Implementa uma tarefa com testes |
-| 8 | `/executar-review` | Code review via PR no GitHub |
+| 5 | `/cria-design` | Cria/atualiza protótipo visual da feature |
+| 6 | `/cria-techspec` | Traduz PRD em decisões arquiteturais |
+| 7 | `/cria-tasks` | Decompõe em tarefas incrementais |
+| 8 | agent `dev` | Implementa uma tarefa com testes |
+| 9 | agent `reviewer` | Code review do PR no GitHub |
 
-> **Nota**: Cada comando ativa uma skill que guia a IA por um processo estruturado com perguntas de esclarecimento, alinhamento com o usuário e checklists de qualidade.
+> **Nota**: Cada gatilho ativa uma skill que guia a IA por um processo estruturado com perguntas de esclarecimento, alinhamento com o usuário e checklists de qualidade.
 
 ---
 
@@ -133,12 +143,14 @@ graph LR
 
 ```mermaid
 graph LR
-    D[PRD] --> E[Tech Spec]
+    D[PRD] --> DS[Design]
+    DS --> E[Tech Spec]
     E --> F[Tasks]
 ```
 
 - **PRD** — Define O QUE e PORQUÊ de uma funcionalidade. Requisitos funcionais numerados (RF-XXX) para rastreabilidade.
-- **Tech Spec** — Define COMO implementar. Arquitetura, modelos de dados, rotas, estratégia de testes.
+- **Design** — Materializa visualmente as telas a partir do PRD.
+- **Tech Spec** — Define COMO implementar. Arquitetura, modelos de dados, rotas, estratégia de testes. Consome o design aprovado como referência visual.
 - **Tasks** — Decompõe em tarefas incrementais. Cada tarefa é um entregável funcional com testes.
 
 ### Fase de Execução (uma vez por tarefa)
@@ -148,8 +160,8 @@ graph LR
     G[Implementação] --> H[Review]
 ```
 
-- **Implementação** — Executa a tarefa seguindo PRD + Tech Spec + AGENTS.md. Inclui testes e lint.
-- **Review** — Revisão automatizada via GitHub MCP com comentários inline no PR.
+- **Implementação** — Subagent `dev` executa a tarefa (skill `executa-task`) seguindo PRD + Design + Tech Spec + AGENTS.md. Inclui testes e lint.
+- **Review** — Subagent `reviewer` (skill `executa-review`) revisa o PR via GitHub MCP com comentários inline.
 
 ---
 

@@ -9,7 +9,7 @@ description: >-
   Use quando o usuário pedir "implemente o design do Paper", "converta esse
   artboard em Rails", "gere o código a partir do Paper".
   Pode ser invocada diretamente ou pela skill executa-task quando a task tem
-  referências de artboards Paper em seu arquivo de task ou em paper-artboards.md.
+  referências de artboards Paper em seu arquivo de task ou em design.md.
   QUANDO NÃO: Use sem Paper disponível. Para criar designs no Paper (ver design-in-paper).
 license: MIT
 compatibility: Paper Desktop app + Paper MCP, Rails 8.1+, Tailwind CSS v4, ERB, Hotwire
@@ -48,7 +48,8 @@ A `executa-task` ativa esta skill quando detecta no arquivo de task:
 - Artboard: orders / Lista de Pedidos / desktop
 - Artboard ID: [id]
 ```
-Ou quando existe `ai-sdd/prd-[feature-slug]/paper-artboards.md`.
+Ou quando existe `ai-sdd/prd-[feature-slug]/design.md` com pelo menos uma linha da tabela
+`## Telas` tendo `Origem = Paper`.
 
 ---
 
@@ -56,7 +57,9 @@ Ou quando existe `ai-sdd/prd-[feature-slug]/paper-artboards.md`.
 
 ### Passo 1: Identificar Artboard-Alvo
 
-1. Se chamado via `executa-task`: leia `paper-artboards.md` e identifique os artboards da task atual
+1. Se chamado via `executa-task`: leia `design.md` e identifique as linhas da tabela `## Telas`
+   com `Origem = Paper` que sejam relevantes para a task atual. O ID do artboard está na coluna
+   **Referência**. Ignore linhas com Origem externa — essas são tratadas pelo `rails-visual-design`.
 2. Se chamado diretamente: peça ao usuário o nome ou ID do artboard
 3. Verifique no Paper com `get_selection` (se o usuário tiver algo selecionado) ou use o nome para localizar via `get_basic_info`
 
@@ -256,7 +259,7 @@ Quando acionada por `executa-task`, esta skill:
 
 ```
 executa-task
-  Passo 2: carrega paper-to-rails (detectou paper-artboards.md)
+  Passo 2: carrega paper-to-rails (detectou design.md com telas em modo Paper)
   Passo 5: [paper-to-rails] converte artboards → ERB + i18n
            [rails-components] aplica partials e helpers
            [stimulus-patterns] adiciona interatividade
