@@ -1,6 +1,6 @@
-# AI-SDD Template — Rails 8
+# AI-SDD Template — React + Vite
 
-> Template de desenvolvimento orientado por especificações com IA para projetos **Rails 8 + Hotwire + PostgreSQL + Tailwind CSS**.
+> Template de desenvolvimento orientado por especificações com IA para projetos **React 18+ · TypeScript · Vite · Tailwind CSS · Zustand · React Query**.
 
 ---
 
@@ -47,7 +47,7 @@ Cada etapa gera um documento que alimenta a próxima, garantindo rastreabilidade
         │   └── assets/
         │       └── design-template.md
         ├── design-in-paper/         # Modo Paper (delegada por cria-design)
-        ├── paper-to-rails/          # Converte artboards Paper em ERB + i18n
+        ├── paper-to-react/          # Converte artboards Paper em React/Tailwind/TS
         ├── mcp-paper/               # Referência das tools do Paper MCP
         ├── cria-techspec/           # Especificação técnica
         │   └── assets/
@@ -87,9 +87,9 @@ ai-sdd/
 
 ## Como Usar
 
-### 1. Copie para o seu projeto Rails
+### 1. Copie para o seu projeto React
 
-Copie a pasta `.opencode/` e o `AGENTS.md` para a raiz do seu projeto Rails:
+Copie a pasta `.opencode/` e o `AGENTS.md` para a raiz do seu projeto React:
 
 ```bash
 cp -r .opencode/ /caminho/do/seu/projeto/
@@ -98,12 +98,11 @@ cp AGENTS.md /caminho/do/seu/projeto/
 
 ### 2. Adapte o AGENTS.md
 
-O `AGENTS.md` vem pré-configurado para a stack **Rails 8.1 + Ruby 4.0.2 + PostgreSQL + Tailwind + Hotwire**. Adapte os seguintes pontos ao seu projeto:
+O `AGENTS.md` vem pré-configurado para a stack **React 18+ · TypeScript · Vite · Tailwind CSS · Zustand · React Query**. Adapte os seguintes pontos ao seu projeto:
 
 - **Linha 1-3**: Nome e descrição do projeto
-- **Seção 2**: Nomes dos bancos de dados (`[app_name]_development`, etc.)
-- **Seção 4**: Estrutura de diretórios específica
-- **Seção 10**: Nomes dos bancos Solid em produção
+- **Seção 2**: Definições exatas do frontend
+- **Seção 4**: Comandos customizados (se aplicável)
 
 ### 3. Execute o fluxo AI-SDD
 
@@ -150,7 +149,7 @@ graph LR
 
 - **PRD** — Define O QUE e PORQUÊ de uma funcionalidade. Requisitos funcionais numerados (RF-XXX) para rastreabilidade.
 - **Design** — Materializa visualmente as telas a partir do PRD.
-- **Tech Spec** — Define COMO implementar. Arquitetura, modelos de dados, rotas, estratégia de testes. Consome o design aprovado como referência visual.
+- **Tech Spec** — Define COMO implementar. Árvore de componentes, gestão de estado, e endpoints de API. Consome o design aprovado como referência visual.
 - **Tasks** — Decompõe em tarefas incrementais. Cada tarefa é um entregável funcional com testes.
 
 ### Fase de Execução (uma vez por tarefa)
@@ -160,7 +159,7 @@ graph LR
     G[Implementação] --> H[Review]
 ```
 
-- **Implementação** — Subagent `dev` executa a tarefa (skill `executa-task`) seguindo PRD + Design + Tech Spec + AGENTS.md. Inclui testes e lint.
+- **Implementação** — Subagent `dev` executa a tarefa (skill `executa-task`) seguindo PRD + Design + Tech Spec + AGENTS.md. Inclui testes e linting de JS/TS.
 - **Review** — Subagent `reviewer` (skill `executa-review`) revisa o PR via GitHub MCP com comentários inline.
 
 ---
@@ -171,19 +170,17 @@ Este template é pré-configurado para:
 
 | Tecnologia | Versão | Uso |
 |-----------|--------|-----|
-| Rails | 8.1 | Framework web |
-| Ruby | 4.0.2 | Linguagem |
-| PostgreSQL | — | Banco de dados |
-| Tailwind CSS | — | Estilização (via `tailwindcss-rails`) |
-| Hotwire | Turbo + Stimulus | Interatividade |
-| Propshaft | — | Asset pipeline |
-| Importmap | — | Gerenciamento JS |
-| Minitest | — | Testes unitários e de integração |
-| Capybara + Selenium | — | Testes E2E |
-| RuboCop Omakase | — | Linting |
-| Kamal | — | Deploy (Docker) |
+| React | 18+ | Framework UI |
+| TypeScript | 5+ | Linguagem |
+| Vite | — | Bundler / Dev Server |
+| Tailwind CSS | 3+ | Estilização |
+| Zustand | — | Gestão de Estado Global |
+| React Query | 5+ | Data Fetching / Caching |
+| React Router | 6+ | Roteamento |
+| Vitest / RTL | — | Testes Unitários e Componentes |
+| ESLint | — | Linting |
 
-> Para usar com outra stack, adapte o `AGENTS.md`, os templates em `assets/` e as referências nos skills de execução (`executa-task`, `executa-review`).
+> Para usar com outra stack (ex: Next.js), adapte o `AGENTS.md`, os templates em `assets/` e as referências nos skills de execução (`executa-task`, `executa-review`).
 
 ---
 

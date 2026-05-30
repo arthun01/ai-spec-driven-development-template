@@ -1,101 +1,84 @@
 # Diretrizes de Desenvolvimento
 
 > [Descrição curta do projeto]
-> **Rails 8.1 · Ruby 4.0.2 · PostgreSQL · Tailwind CSS · Hotwire (Turbo + Stimulus)**
+> **React 18+ · TypeScript · Vite · Tailwind CSS · Zustand · React Query**
 
 ## Stack
 
-- **Ruby** 4.0.2, **Rails** 8.1, **PostgreSQL**
-- **Frontend:** Hotwire (Turbo + Stimulus), Tailwind CSS, Importmap (sem Node.js)
-- **Testes:** Minitest + Fixtures (não RSpec, não FactoryBot)
-- **Background Jobs:** Solid Queue (database-backed, sem Redis)
-- **Cache:** Solid Cache | **WebSocket:** Solid Cable
-- **Assets:** Propshaft + Importmap (sem Webpack/esbuild)
-- **Deploy:** Kamal 2 + Thruster
-- **CI:** GitHub Actions (`.github/workflows/ci.yml`)
-- **Dev:** Dev Container (Docker Compose + PostgreSQL + Selenium)
+- **Linguagem:** TypeScript
+- **Frontend:** React 18+, Vite, Tailwind CSS
+- **Estado Global:** Zustand
+- **Data Fetching:** React Query (TanStack Query)
+- **Testes:** Vitest + React Testing Library
+- **Linting/Formatação:** ESLint + Prettier
+- **Roteamento:** React Router (ou o roteador padrão do framework se usar Next.js futuramente)
 
 ## Arquitetura
 
 ```
-app/
-  controllers/     # Thin. Apenas 7 ações REST. Novo recurso para cada mudança de estado.
-  models/          # Rich. Lógica de negócio, concerns, associações, validações.
-  models/concerns/ # Comportamento horizontal: Closeable, Assignable, Searchable.
-  views/           # ERB + Turbo Frames/Streams. Sem frameworks JS.
-  jobs/            # Shallow. Chamam métodos do model, sem lógica própria.
-  mailers/         # Minimal. Agrupam notificações, plain-text primeiro.
-  javascript/controllers/  # Stimulus controllers para interatividade JS.
+src/
+  components/  # Componentes reutilizáveis de UI e layout genérico.
+  hooks/       # Custom hooks lógicos compartilhados.
+  pages/       # Componentes de página/roteamento. Agrupam a lógica principal da view.
+  services/    # Integração de API, clientes HTTP (axios/fetch).
+  store/       # Definição de stores globais com Zustand.
+  types/       # Definições globais de interfaces e tipos TypeScript.
+  utils/       # Funções auxiliares e helpers puros.
 ```
-
-**Sem `app/services/`, `app/queries/`, `app/policies/`.** Lógica de negócio vive nos models. Formulários complexos usam nested attributes padrão do Rails.
 
 ## Regras Absolutas
 
 | Regra | Detalhe |
 |-------|---------|
-| ✅ Checks antes de concluir | `bin/rubocop -a` → `bin/brakeman --no-pager` → `bin/bundler-audit` → `bin/rails test` |
-| ✅ Sempre `bin/rails` | Nunca use `rails` diretamente — use binstubs em `bin/` |
-| ✅ i18n obrigatório | Toda string visível ao usuário em `config/locales/*.yml` — use `t('.chave')` |
-| ✅ Causa raiz | Nunca use workarounds — corrija o problema real |
-| ❌ Sem git destrutivo | Nunca `git restore`, `git reset`, `git clean` sem permissão explícita |
-| ❌ Sem JS inline | Toda interatividade via Stimulus controllers |
-| ❌ Sem edição do `schema.rb` | Use migrações exclusivamente |
-| ❌ Sem service objects | Lógica de negócio vive nos models com concerns |
+| ✅ Checks antes de concluir | `npm run lint` → `npm run typecheck` → `npm run test` |
+| ✅ Strict Mode | TypeScript configurado em `strict: true` e app envolvido em `<React.StrictMode>` |
+| ✅ Tipagem estrita | Nenhuma variável ou retorno como `any`. Use `unknown` se estritamente necessário. |
+| ✅ Separação UI/Lógica | Custom Hooks gerenciam estado complexo, componentes renderizam a UI. |
+| ❌ Sem mutação direta | Sempre retorne novos objetos/arrays em atualizações de estado local ou global. |
+| ❌ Sem "Prop Drilling" profundo | Use Zustand ou Context API quando passar de 2-3 níveis de profundidade. |
+| ❌ Sem dependências vazando | Todo `useEffect`, `useMemo` ou `useCallback` deve ter array de dependências rigorosamente preenchido. |
 
 ## Comandos Essenciais
 
 ```bash
-bin/dev                                      # Servidor + Tailwind watch
-bin/rails test                               # Todos os testes
-bin/rails test test/models/user_test.rb      # Arquivo específico
-bin/rails test test/models/user_test.rb:14   # Linha específica
-bin/rails test:system                        # Testes E2E (Capybara + Selenium)
-bin/ci                                       # CI completo (rubocop + brakeman + tests)
-bin/rubocop -a                               # Lint + autocorreção
-bin/rails db:migrate                         # Executar migrações
-bin/rails db:prepare                         # Criar + migrar (idempotente)
-bin/rails console                            # Console interativo
-bin/setup                                    # Setup completo
+npm install      # Instalar dependências
+npm run dev      # Iniciar servidor de desenvolvimento (Vite)
+npm run build    # Compilar projeto para produção
+npm run lint     # Rodar ESLint
+npm run test     # Rodar suíte de testes (Vitest)
+npm run typecheck# Checar tipos TypeScript
 ```
 
 ## Nomenclatura
 
 | Tipo | Convenção | Exemplo |
 |------|-----------|---------|
-| Model | Singular PascalCase | `User`, `OrderItem` |
-| Controller | Plural, aninhado por recurso | `Orders::ClosuresController` |
-| Registro de estado | Substantivo descrevendo o estado | `Closure`, `Publication` |
-| Concern | Adjetivo/-able | `Closeable`, `Assignable`, `Searchable` |
-| Job | `Model::VerbJob` | `Order::NotifyJob` |
-| Teste | `ModelTest` / `ControllerTest` | `UserTest`, `OrdersControllerTest` |
-| Stimulus | `kebab-case` no HTML, `snake_case` no arquivo | `data-controller="image-gallery"` → `image_gallery_controller.js` |
-| Tabelas | `snake_case` plural | `order_items`, `user_accounts` |
+| Componentes | PascalCase | `UserProfile.tsx`, `SubmitButton.tsx` |
+| Pastas de componentes | PascalCase (quando agrupa componente) ou kebab-case (padrão do time) | `UserProfile/` ou `user-profile/` |
+| Custom Hooks | camelCase prefixado com 'use' | `useAuth.ts`, `useFetchData.ts` |
+| Stores (Zustand) | camelCase prefixado com 'use' e sufixo 'Store' | `useUserStore.ts` |
+| Arquivos utilitários | camelCase ou kebab-case | `formatDate.ts`, `api-client.ts` |
+| Interfaces | PascalCase (prefixadas com 'I' é opcional, preferência sem prefixo) | `User`, `ApiResponse` |
+| Props | Nomenclatura do componente + 'Props' | `UserProfileProps` |
 
 ## Anti-padrões
 
 | Não faça | Faça |
 |----------|------|
-| `app/services/` | Lógica nos models com concerns |
-| Editar `schema.rb` | Criar migração |
-| `and` / `or` | `&&` / `||` |
-| JavaScript inline | Stimulus controller |
-| Strings hardcoded em views | `t('.chave')` (i18n) |
-| `rescue => e` genérico | Rescue de exceção específica |
-| Sprockets / Webpack / esbuild | Propshaft + Importmap |
-| `rails` direto | `bin/rails` |
-| Pular lint/testes | `bin/rubocop -a` → `bin/rails test` |
+| Tipos `any` soltos | Tipos estritos (`interface`, `type`, `unknown`) |
+| Lógica pesada em Componentes | Extrair para `src/hooks/` ou `src/utils/` |
+| Fetching em `useEffect` direto | Use React Query (`useQuery`, `useMutation`) |
+| Encadeamento de `useState` longo | Use `useReducer` ou Zustand (`src/store/`) |
+| Classes CSS inline (`style={{}}`) | Tailwind CSS utility classes |
+| Ignorar exaustão de dependências | Seguir os alertas do `eslint-plugin-react-hooks` |
 
 ## Guia de Estilo
 
-- Condicionais expandidas ao invés de cláusulas de guarda (exceção: retornos antecipados de uma única linha no início do método)
-- Ordenação de métodos: métodos de classe > instância pública (inicializar primeiro) > métodos privados
-- Ordenar métodos privados pelo fluxo de invocação (ordem de chamada)
-- Métodos bang (`!`) somente quando existir uma contraparte sem exceção
-- Sem quebra de linha sob a palavra-chave `private`/`protected`; indentar o conteúdo sob ela
-- Evitar objetos de serviço -- a lógica de domínio pertence a modelos com preocupações (serviços são aceitáveis ​​quando justificados)
-- `belongs_to :creator, default: -> { Current.user }` para valores padrão de contexto
-- `touch: true` em associações filhas para invalidação de cache
+- **Functional Components:** Use sempre componentes funcionais e hooks. Não use Class Components.
+- **Early Returns:** Evite aninhamentos profundos. Valide erros e retorne precocemente.
+- **Desestruturação:** Desestruture props e estados diretamente. Ex: `const { name, age } = props;`
+- **Memoização:** Use `React.memo`, `useMemo` e `useCallback` quando for passar funções/objetos via props para evitar re-renders desnecessários.
+- **Exportações:** Prefira "named exports" para funções/hooks e "default exports" apenas para componentes de página/rotas.
 
 ## Metodologia AI-SDD
 
@@ -105,7 +88,7 @@ O projeto segue **AI-Specification-Driven Development**:
 - **Funcionalidades:** `ai-sdd/prd-[feature-slug]/` — PRD + design + techspec + tasks por funcionalidade
 - **Commands:** `.opencode/commands/` — automação de planejamento (vision, product map, roadmap, PRD, design, techspec, tasks)
 - **Agents:** `.opencode/agents/` — execução (`dev` implementa tarefas, `reviewer` revisa PRs)
-- **Skills:** `.opencode/skills/` — padrões Rails (CRUD, auth, testing, Turbo, Stimulus, etc.) e procedimentos AI-SDD
-- **Rules:** `.opencode/rules/` — convenções por camada (models, controllers, views, etc.)
+- **Skills:** `.opencode/skills/` — padrões React (Componentes, State, Hooks, etc.) e procedimentos AI-SDD
+- **Rules:** `.opencode/rules/` — convenções por camada (components, hooks, state-management, etc.)
 
-Veja `.opencode/rules/` para convenções detalhadas por camada (models, controllers, views, testing, migrations, jobs, mailers, multi-tenancy, style).
+Veja `.opencode/rules/` para convenções detalhadas por camada.

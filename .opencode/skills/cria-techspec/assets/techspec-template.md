@@ -24,51 +24,59 @@ Relacionamentos principais entre componentes e visão geral do fluxo de dados.]
 
 ### Interfaces Principais
 
-[Defina interfaces de serviço principais (≤20 linhas por exemplo):
+[Defina interfaces TypeScript principais (≤20 linhas por exemplo):
 
-```ruby
-# Exemplo — adapte à linguagem do projeto
-class NomeServico
-  def nome_metodo(parametro)
-    # Descrição do comportamento esperado
-  end
-end
+```typescript
+// Exemplo
+export interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'user';
+}
 ```
-
 ]
 
-### Modelos de Dados
+### Árvore de Componentes (Component Tree)
 
-[Defina estruturas de dados essenciais:
+[Defina a hierarquia visual e de componentes:
 
-- **Entidades de domínio**: Modelos ActiveRecord com atributos principais e relacionamentos
-- **Migrações**: Tabelas a criar/modificar, colunas, índices, foreign keys
-- **Validações**: Regras de validação e constraints do banco
+- **Componentes de Página**: Quais componentes roteáveis serão afetados
+- **Componentes de UI**: Novos elementos de interface a criar
+- **Hooks Customizados**: Lógica de interface encapsulada
 
 Exemplo:
-```ruby
-# resources
-# - name: string, not null
-# - price: decimal(10,2)
-# - resource_type: enum (type_a, type_b, type_c)
-#
-# relationships
-# - belongs_to :user
-# - has_many :images
-#
-# indexes
-# - [:resource_type, :status]
+```text
+DashboardPage
+├── Sidebar
+├── Header
+└── MainContent
+    ├── UserStats (usa useUserStats)
+    └── RecentActivity
 ```
 ]
 
-### Endpoints / Rotas
+### Gestão de Estado (State Requirements)
 
-[Liste rotas e ações de controllers se aplicável:
+[Defina os requisitos de estado para a funcionalidade:
 
-| Método | Rota | Controller#Action | Descrição |
-|--------|------|-------------------|-----------|
-| GET | `/recurso` | `recursos#index` | Listagem |
-| POST | `/recurso` | `recursos#create` | Criação |
+- **Estado Local**: O que será mantido em `useState`/`useReducer`
+- **Estado Global**: O que será mantido no `Zustand`
+- **Server State**: O que será buscado/cacheado pelo `React Query`
+
+Exemplo:
+- Estado do modal de edição: Local (`isOpen`, `setIsOpen`)
+- Sessão do usuário logado: Global (`useAuthStore`)
+]
+
+### Endpoints de API a Consumir
+
+[Liste os endpoints que a UI precisará chamar (via Axios/Fetch + React Query):
+
+| Método | Endpoint | Hook/Função | Descrição |
+|--------|----------|-------------|-----------|
+| GET | `/api/v1/users` | `useUsers()` | Listagem de usuários |
+| POST | `/api/v1/users` | `useCreateUser()` | Criação de usuário |
 
 Referencie requisitos do PRD (RF-XXX) quando aplicável.]
 
@@ -77,36 +85,28 @@ Referencie requisitos do PRD (RF-XXX) quando aplicável.]
 [Inclua apenas se a funcionalidade requer integrações externas:
 
 - **Serviço/API**: [Nome] — [Propósito]
-- **Autenticação**: [Método de autenticação]
+- **Autenticação**: [Método de autenticação enviado nos headers]
 - **Tratamento de Erros**: [Abordagem para falhas e retries]
-- **Fallback**: [Comportamento quando integração está indisponível]]
+- **Fallback**: [Comportamento quando integração está indisponível na UI]]
 
 ## Abordagem de Testes
 
-### Testes Unitários
+### Testes Unitários e Componentes
 
-[Estratégia de testes unitários (Minitest):
+[Estratégia de testes com Vitest + RTL:
 
-- **Modelos**: Validações, scopes, métodos de negócio
-- **Services**: Lógica de negócio isolada
-- **Cenários críticos**: [Liste os mais importantes]
-- **Mocks**: Apenas para serviços externos]
+- **Componentes**: Comportamento visual, acessibilidade (queries RTL), interações (user-event)
+- **Hooks**: Lógica isolada (renderHook)
+- **Utils**: Funções puras
+- **Cenários críticos**: [Liste os mais importantes]]
 
-### Testes de Integração
+### Mocks e Integração
 
-[Testes de controllers e integração:
+[Testes de integração:
 
-- **Controllers**: Respostas, redirecionamentos, strong parameters
-- **Fluxos**: Request specs testando fluxos completos
-- **Dados de teste**: Fixtures necessárias]
-
-### Testes E2E
-
-[Testes de sistema com Capybara:
-
-- **Fluxos principais**: [Liste os fluxos happy path]
-- **Casos extremos**: [Cenários de erro importantes]
-- **Acessibilidade**: Verificações básicas de acessibilidade]
+- **Mocks de API**: Interceptação de requests (ex: MSW) para simular o backend
+- **Fluxos**: Testando um conjunto de componentes integrados
+- **Dados de teste**: Factories ou dados estáticos necessários]
 
 ## Sequenciamento de Desenvolvimento
 
@@ -114,26 +114,26 @@ Referencie requisitos do PRD (RF-XXX) quando aplicável.]
 
 [Defina sequência de implementação respeitando dependências:
 
-1. **[Componente]**: [Justificativa de porque primeiro] — Ref: RF-XXX
-2. **[Componente]**: [Dependências que devem estar prontas]
-3. **[Componente]**: [O que precisa estar pronto antes]
-4. **Integração e Testes**: [Validação final]]
+1. **[Interfaces/Tipos]**: [Justificativa] — Ref: RF-XXX
+2. **[Serviços/Hooks de API]**: [Dependências]
+3. **[Componentes Base]**: [O que precisa estar pronto antes]
+4. **[Integração e Testes]**: [Validação final]]
 
 ### Dependências Técnicas
 
 [Liste dependências bloqueantes:
 
-- **Gems/Bibliotecas**: [Nome] — [Versão] — [Propósito]
+- **Bibliotecas npm**: [Nome] — [Versão] — [Propósito]
 - **Infraestrutura**: [O que precisa estar configurado]
-- **Serviços externos**: [Disponibilidade requerida]]
+- **Serviços externos/APIs**: [Disponibilidade requerida do Backend]]
 
 ## Monitoramento e Observabilidade
 
 [Defina abordagem de monitoramento:
 
-- **Logs**: Eventos principais a registrar e níveis (info, warn, error)
-- **Métricas**: Indicadores de saúde da funcionalidade
-- **Alertas**: Condições que requerem atenção]
+- **Logs**: Eventos principais a registrar no client-side
+- **Métricas/Analytics**: Interações a serem trackeadas
+- **Alertas**: Captura de exceções globais (ex: Sentry)]
 
 ## Considerações Técnicas
 
@@ -160,7 +160,7 @@ Referencie requisitos do PRD (RF-XXX) quando aplicável.]
 [Skills e padrões do projeto que se aplicam a esta spec:
 
 - **[Skill/Padrão]**: [Como esta spec está conforme] ou [Desvio: justificativa e alternativa]
-- **AGENTS.md**: [Conformidade com convenções Rails, nomenclatura, i18n, etc.]]
+- **AGENTS.md**: [Conformidade com convenções React, TypeScript, Hooks, etc.]]
 
 ### Arquivos Relevantes e Dependentes
 
