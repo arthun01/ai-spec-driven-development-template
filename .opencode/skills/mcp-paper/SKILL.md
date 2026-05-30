@@ -8,8 +8,8 @@ description: >-
   artboards, manipulação de nós, export de JSX/CSS/imagens.
   REQUER: Paper Desktop app rodando localmente (inicia o MCP server automaticamente).
   Use quando: qualquer interação com o Paper MCP for necessária.
-  QUANDO NÃO: para lógica pura de Rails sem Paper (ver outras skills).
-  RELAÇÃO: esta skill é referenciada por design-in-paper e paper-to-rails.
+  QUANDO NÃO: para lógica pura de React sem Paper (ver outras skills).
+  RELAÇÃO: esta skill é referenciada por design-in-paper e paper-to-react.
 license: MIT
 compatibility: Paper Desktop app + Paper MCP server (http://127.0.0.1:29979/mcp)
 ---
@@ -194,7 +194,7 @@ Captura um screenshot de um nó específico.
 | **Parâmetros** | `id` (string) — ID do nó; `scale` (number, opcional) — `1` (padrão) ou `2` para 2x |
 | **Retorno** | Imagem em base64 (PNG) |
 | **Uso típico** | Verificação visual; comparar resultado antes/depois; referência para implementação |
-| **Quando usar** | Após criar/modificar artboards; durante `paper-to-rails` para referência visual |
+| **Quando usar** | Após criar/modificar artboards; durante `paper-to-react` para referência visual |
 
 ```
 Exemplo de uso:
@@ -217,8 +217,8 @@ Retorna o JSX de um nó e todos os seus descendentes.
 |-------|---------|
 | **Parâmetros** | `id` (string) — ID do nó; `format` (string, opcional) — `"tailwind"` (padrão) ou `"inline-styles"` |
 | **Retorno** | Código JSX com classes Tailwind ou estilos inline, representando a árvore visual |
-| **Uso típico** | Conversão design → código; base para templates ERB; entender layout e estilos |
-| **Quando usar** | Principal tool da skill `paper-to-rails`; quando precisa do código do design |
+| **Uso típico** | Conversão design → código; base para componentes React; entender layout e estilos |
+| **Quando usar** | Principal tool da skill `paper-to-react`; quando precisa do código do design |
 
 ```
 Exemplo de uso:
@@ -232,7 +232,7 @@ Exemplo de uso:
 **Boas práticas:**
 - Use `format: "tailwind"` para projetos Tailwind (padrão do projeto)
 - Use `format: "inline-styles"` quando precisar de CSS raw ou para `design-in-paper`
-- O JSX retornado usa `className` — converter para `class` no ERB
+- O JSX retornado usa `className` — manter `className` no JSX
 - Textos hardcoded devem ser substituídos por `t('.chave')` na conversão
 
 ---
@@ -290,7 +290,7 @@ Verifica a disponibilidade de uma família de fontes.
 | **Parâmetros** | `family` (string) — nome da família de fontes |
 | **Retorno** | Se está disponível (máquina local ou Google Fonts); pesos e estilos disponíveis |
 | **Uso típico** | Verificar se fonte do design está acessível; decidir fallbacks |
-| **Quando usar** | Durante `paper-to-rails` para garantir que fontes do design estarão disponíveis no projeto |
+| **Quando usar** | Durante `paper-to-react` para garantir que fontes do design estarão disponíveis no projeto |
 
 ```
 Exemplo de uso:
@@ -405,7 +405,7 @@ Exemplo de uso:
 - Use **estilos inline** (`style=`) — o Paper interpreta CSS inline
 - Use **CSS Variables** quando possível para tokens do design system
 - Use **conteúdo real** — não Lorem Ipsum
-- Estruture semanticamente — cada seção lógica é um partial potencial em Rails
+- Estruture semanticamente — cada seção lógica é um partial potencial em React
 
 ---
 
@@ -439,7 +439,7 @@ Renomeia uma ou mais layers (batch).
 |-------|---------|
 | **Parâmetros** | `updates` (array) — `[{ id: string, name: string }]` |
 | **Retorno** | Confirmação dos nós renomeados |
-| **Uso típico** | Organizar layers com nomes semânticos; preparar estrutura para conversão Rails |
+| **Uso típico** | Organizar layers com nomes semânticos; preparar estrutura para conversão React |
 | **Quando usar** | Após `write_html` para nomear layers semanticamente |
 
 ```
@@ -452,7 +452,7 @@ Exemplo de uso:
 ← { renamed: ["node_001", "node_002", "node_003"] }
 ```
 
-**Nomes semânticos padrão Rails:**
+**Nomes semânticos padrão React:**
 - `page-header`, `page-content`, `page-footer`
 - `card-list`, `card-item`, `card-detail`
 - `form-section`, `form-actions`
@@ -610,7 +610,7 @@ mesmo em caso de erro — caso contrário o indicador ficará preso.
 7. finish_working_on_nodes([artboardId])     → remover indicador
 ```
 
-### Workflow 4: Converter Design → Código (usado por paper-to-rails)
+### Workflow 4: Converter Design → Código (usado por paper-to-react)
 
 ```
 1. get_basic_info()                          → verificar conexão
@@ -621,7 +621,7 @@ mesmo em caso de erro — caso contrário o indicador ficará preso.
 6. get_computed_styles(ids[])                → valores exatos para tokens
 7. get_fill_image(id)                        → extrair imagens usadas
 8. get_font_family_info(family)              → verificar fontes
-→ Converter JSX → ERB + Tailwind + i18n (ver skill paper-to-rails)
+→ Converter JSX → JSX + Tailwind + i18n (ver skill paper-to-react)
 ```
 
 ### Workflow 5: Duplicar para Breakpoint Responsivo
@@ -668,12 +668,12 @@ mesmo em caso de erro — caso contrário o indicador ficará preso.
 - **Verificação visual**: Capture `get_screenshot` após cada operação de escrita
 - **Confirme antes de deletar**: `delete_nodes` é irreversível — peça confirmação ao usuário
 
-### Estrutura de Design (para conversão Rails)
+### Estrutura de Design (para conversão React)
 
 - Use **flex layouts** (não grid CSS complexo)
 - Use **estilos inline** no HTML escrito via `write_html`
 - Use **conteúdo real** — nunca Lorem Ipsum
-- Nomeie layers com `rename_nodes` usando **nomes semânticos Rails**
+- Nomeie layers com `rename_nodes` usando **nomes semânticos React**
 - Estruture como partials potenciais: cada seção lógica = um partial
 
 ### Nomenclatura de Artboards
@@ -711,11 +711,11 @@ Breakpoints padrão:
 | Skill | Relação |
 |-------|---------|
 | `design-in-paper` | **Usa esta skill** — cria artboards a partir de PRDs |
-| `paper-to-rails` | **Usa esta skill** — lê designs e converte para ERB |
+| `paper-to-react` | **Usa esta skill** — lê designs e converte para JSX |
 | `tailwind-design-system` | Fornece tokens para `write_html` e mapeamento em `get_computed_styles` |
 | `frontend-design` | Princípios de design aplicados na criação de artboards |
-| `rails-visual-design` | Fallback quando Paper MCP não está disponível |
-| `executa-task` | Aciona `paper-to-rails` que usa esta skill indiretamente |
+| `react-visual-design` | Fallback quando Paper MCP não está disponível |
+| `executa-task` | Aciona `paper-to-react` que usa esta skill indiretamente |
 
 ---
 

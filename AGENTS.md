@@ -91,4 +91,4 @@ O projeto segue **AI-Specification-Driven Development**:
 - **Skills:** `.opencode/skills/` — padrões React (Componentes, State, Hooks, etc.) e procedimentos AI-SDD
 - **Rules:** `.opencode/rules/` — convenções por camada (components, hooks, state-management, etc.)
 
-Veja `.opencode/rules/` para convenções detalhadas por camada.
+Veja `.opencode/rules/` para convenções detalhadas por camada. Adicionalmente, siga estritamente as regras de otimização documentadas em `.opencode/skills/vercel-react-best-practices/AGENTS.md`.

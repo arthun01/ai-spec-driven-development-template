@@ -1,18 +1,15 @@
 ---
 paths:
-  - "app/**/*.rb"
-  - "lib/**/*.rb"
+  - "src/**/*.ts"
+  - "src/**/*.tsx"
 ---
 
-# 37signals Ruby Style
+# Guia de Estilo React & TypeScript
 
-- Expanded conditionals over guard clauses (exception: single-line early returns at method start when body is non-trivial)
-- Method ordering: class methods > public instance (`initialize` first) > private
-- Order private methods vertically by invocation flow (call order matches read order)
-- Bang methods (`!`) only when a non-bang counterpart exists; never to flag destructiveness
-- No newline under `private`/`protected` keyword; indent content under it
-- If a module has only private methods: `private` at top, extra newline after, no indentation
-- Prefer string enums over integers
-- Use `normalizes` for data cleanup (strip, downcase)
-- Default values via lambdas: `default: -> { Current.user }`
-- No service objects -- business logic belongs in models
+- **Nomenclatura:** Utilize PascalCase para Componentes e interfaces (`UserProfile`, `UserProps`), e camelCase para variáveis, funções e Custom Hooks (`useAuth`, `formatDate`).
+- **Tipagem:** Utilize tipagem estrita no TypeScript. Evite o uso de `any`. Prefira `unknown` caso o tipo exato não seja conhecido de antemão.
+- **Exportações:** Prefira "named exports" para funções e hooks utilitários. Use "default exports" apenas para componentes de página/rotas, de acordo com o padrão do framework (como Next.js ou React Router).
+- **Componentes:** Sempre escreva componentes funcionais. Componentes de classe não devem ser utilizados.
+- **Imports:** Mantenha a ordem de importações: 1. Bibliotecas externas (ex: `react`, `zustand`), 2. Componentes internos absolutos, 3. Imports relativos locais.
+- **Desestruturação:** Sempre desestruture props nos parâmetros da função do componente: `const Card = ({ title, children }: CardProps) => { ... }`.
+- **CSS e Estilização:** Utilize classes utilitárias do Tailwind CSS. Evite CSS inline (`style={{...}}`) a menos que seja um valor estritamente dinâmico (como cálculos de dimensões via JS).

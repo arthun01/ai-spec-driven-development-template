@@ -1,6 +1,6 @@
 # Checklist de Qualidade de Código
 
-> Este checklist complementa o `AGENTS.md`. As regras do projeto (convenções Rails, i18n, nomenclatura, formatação) já estão definidas lá. Aqui ficam apenas os critérios de **verificação e inspeção** que exigem análise do código pronto.
+> Este checklist complementa o `AGENTS.md`. As regras do projeto (convenções React, TypeScript, nomenclatura, formatação) já estão definidas lá. Aqui ficam apenas os critérios de **verificação e inspeção** que exigem análise do código pronto.
 
 ## Design e Estrutura
 

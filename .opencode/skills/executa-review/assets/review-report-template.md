@@ -13,8 +13,8 @@
 | 🟢 Baixa | [Z] |
 
 ### Testes
-- `bin/rails test`: ✅ Passando / ❌ Falhando ([N] falhas)
-- `bin/rubocop -a -S -s`: ✅ Limpo / ❌ [N] problemas
+- `npm run test`: ✅ Passando / ❌ Falhando ([N] falhas)
+- `npm run lint`: ✅ Limpo / ❌ [N] problemas
 
 ### Tarefas
 | Tarefa | Status |

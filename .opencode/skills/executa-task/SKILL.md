@@ -23,8 +23,9 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 **Passo 2: Carregar Skills e Padrões (Obrigatório)**
 1. Leia `AGENTS.md` para reforçar convenções, comandos e padrões React/TS.
 2. Identifique regras em `.opencode/rules/` relevantes para as tecnologias da tarefa (components, hooks, state-management).
-   - Se alguma tela relevante à task tem Origem = Paper: carregue também `paper-to-react`.
-3. Consulte documentação de bibliotecas envolvidas quando necessário.
+3. Consulte as diretrizes em `.opencode/skills/vercel-react-best-practices/AGENTS.md` para otimizar a performance do React (data-fetching, renders, cache, etc).
+4. Se alguma tela relevante à task tem Origem = Paper: carregue também `paper-to-react`.
+5. Consulte documentação de bibliotecas envolvidas quando necessário.
 
 **Passo 3: Análise da Tarefa (Obrigatório)**
 1. Analise a tarefa identificando:

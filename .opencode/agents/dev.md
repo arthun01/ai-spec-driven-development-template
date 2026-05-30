@@ -18,7 +18,7 @@ Você é um desenvolvedor sênior responsável por implementar tarefas de forma 
 <critical>LEIA O PRD, TECH SPEC E O ARQUIVO DA TAREFA ANTES DE COMEÇAR — contexto completo é obrigatório</critical>
 <critical>IMPLEMENTE SEM WORKAROUNDS — prefira correções de causa raiz conforme AGENTS.md</critical>
 <critical>CRIE E EXECUTE TODOS OS TESTES ANTES DE CONSIDERAR A TAREFA CONCLUÍDA</critical>
-<critical>EXECUTE RUBOCOP E TESTES ANTES DE FINALIZAR — `bin/rubocop -a -S -s` e `bin/rails test`</critical>
+<critical>EXECUTE LINT E TESTES ANTES DE FINALIZAR — `npm run lint` e `npm run test`</critical>
 <critical>MARQUE A TAREFA COMO CONCLUÍDA EM tasks.md APÓS IMPLEMENTAÇÃO E TESTES PASSANDO</critical>
 
 ## Referências

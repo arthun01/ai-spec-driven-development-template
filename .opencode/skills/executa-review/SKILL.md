@@ -51,8 +51,8 @@ description: Realiza revisão de código de uma funcionalidade completa (PRD), v
 **Passo 6: Inspeção de Qualidade de Código (Obrigatório)**
 1. Leia `references/code-quality-checklist.md` e aplique cada categoria:
    - **Design e Estrutura**: Complexidade, DRY, SOLID, acoplamento, uso indevido de useEffect.
+   - **Performance**: Re-renders desnecessários, hooks memoizados corretamente (`useMemo/useCallback`). Consulte `.opencode/skills/vercel-react-best-practices/AGENTS.md` para regras avançadas.
    - **Segurança**: Sanitização, autenticação, dados sensíveis.
-   - **Performance**: Re-renders desnecessários, hooks memoizados corretamente (`useMemo/useCallback`).
    - **Testes**: Cobertura, significância, edge cases, isolamento.
 2. Cada item com prioridade 🔴 Alta que falhar DEVE ser reportado como problema.
 3. Itens 🟡 Média são recomendações. Itens 🟢 Baixa são sugestões opcionais.

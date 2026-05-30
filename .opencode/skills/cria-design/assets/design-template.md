@@ -2,8 +2,8 @@
 
 > Documento único de design desta feature. Consumido por `cria-techspec` e `executa-task`.
 > Cada tela tem uma linha na tabela abaixo. A coluna **Origem** define o modo:
-> `Paper` (consumido pela `paper-to-rails` via MCP) ou uma ferramenta externa
-> (`Figma`, `Sketch`, `Screenshot`, `Texto`, etc., consumido pela `rails-visual-design`).
+> `Paper` (consumido pela `paper-to-react` via MCP) ou uma ferramenta externa
+> (`Figma`, `Sketch`, `Screenshot`, `Texto`, etc.).
 > É permitido misturar origens diferentes entre telas da mesma feature.
 
 **Status:** [Em rascunho | Aprovado | N/A — feature sem UI]
@@ -39,7 +39,7 @@ dados exibidos, ações disponíveis. Quanto mais detalhado, melhor a tech spec.
 ## Notas para a Tech Spec
 
 [Observações sobre o design que devem influenciar a tech spec: padrões reutilizáveis,
-componentes que devem virar partials, interações que precisam de Stimulus, estados
+componentes que devem virar hooks ou sub-componentes, estados globais vs locais
 alternativos (loading, empty, error) já cobertos no design.]
 
 ## Notas para Implementação

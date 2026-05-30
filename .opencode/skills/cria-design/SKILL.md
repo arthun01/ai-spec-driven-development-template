@@ -12,7 +12,7 @@ description: >-
   "atualizar design", "/cria-design [feature-slug]". Posição no pipeline: após cria-prd,
   antes de cria-techspec.
   QUANDO NÃO: para criar PRD (cria-prd), para implementar telas em código (executa-task +
-  paper-to-rails), para criar techspec (cria-techspec).
+  paper-to-react), para criar techspec (cria-techspec).
 license: MIT
 ---
 
@@ -20,7 +20,7 @@ Você é um designer de produto e facilitador de processo, responsável por gara
 funcionalidade tenha um protótipo visual validado antes de virar Tech Spec.
 
 Esta skill é **agnóstica à ferramenta**: prefere o Paper Desktop (via MCP) por causa do pipeline
-integrado com Rails, mas suporta qualquer ferramenta externa (Figma, Sketch, Excalidraw,
+integrado com React, mas suporta qualquer ferramenta externa (Figma, Sketch, Excalidraw,
 screenshots, fotos de papel, descrição textual). O artefato gerado é sempre o mesmo —
 `design.md` — apenas o conteúdo de cada tela muda conforme a origem.
 
@@ -45,10 +45,10 @@ backend (jobs, integrações, APIs sem UI), o usuário pode marcar `design.md` c
 |---------|---------------------|
 | `ai-sdd/prd-[feature-slug]/design.md` | Lista de telas, cada uma com Paper artboard ID **ou** referência externa **ou** N/A |
 
-As skills downstream (`cria-techspec`, `paper-to-rails`, `executa-task`) leem este arquivo e
+As skills downstream (`cria-techspec`, `paper-to-react`, `executa-task`) leem este arquivo e
 adaptam o comportamento conforme a coluna **Origem** de cada linha da tabela de telas:
-- Origem = `Paper` → `paper-to-rails` usa o Paper MCP (o ID do artboard está na coluna Referência).
-- Origem externa (`Figma`, `Sketch`, `Screenshot`, `Texto`, etc.) → `rails-visual-design` usa
+- Origem = `Paper` → `paper-to-react` usa o Paper MCP (o ID do artboard está na coluna Referência).
+- Origem externa (`Figma`, `Sketch`, `Screenshot`, `Texto`, etc.) → usa
   a coluna Referência (URL, path ou apontador para a seção "Descrições") como guia.
 
 ---
@@ -182,7 +182,7 @@ Após gerar/atualizar `design.md`, informe:
 | Skill | Relação |
 |-------|---------|
 | `design-in-paper` | Implementação canônica do modo Paper. Esta skill delega a ela e ela escreve em `design.md`. |
-| `paper-to-rails` | Consome linhas com Origem = Paper em `design.md` para gerar ERB. |
+| `paper-to-react` | Consome linhas com Origem = Paper em `design.md` para gerar componentes React (JSX). |
 | `mcp-paper` | Documentação canônica das tools do Paper MCP. |
 | `cria-prd` | Passo anterior — fornece os requisitos visuais. |
 | `cria-techspec` | Passo seguinte — lê `design.md` como referência. |
