@@ -188,7 +188,13 @@ Este template é pré-configurado para:
 
 Este template suporta nativamente várias ferramentas de desenvolvimento assistido por IA, mantendo os arquivos `.opencode/` como **Single Source of Truth** e utilizando symlinks para garantir compatibilidade perfeita e sincronia das regras:
 
-- **Antigravity** — Use a pasta `.antigravity/` já configurada no template.
+- **Antigravity** — Possui o diretório `.antigravity/` com integração das rules/skills e o arquivo `ANTIGRAVITY.md`.
+- **Claude Code** — Possui o diretório `.claude/` e o arquivo `CLAUDE.md`.
+- **Codex** — Possui o diretório `.codex/` pré-configurado.
+- **OpenCode** — Utiliza o diretório `.opencode/` nativamente.
+
+Para outras ferramentas de IA que suportem instruções em markdown, você pode utilizá-las como referência:
+
 - **Cursor** — Copie os skills para `.cursor/rules/`
 - **Windsurf** — Copie para `.windsurfrules/`
 - **Cline / Roo Code** — Use como instruções customizadas
