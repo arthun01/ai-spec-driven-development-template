@@ -186,13 +186,12 @@ Este template é pré-configurado para:
 
 ## Compatibilidade com Ferramentas de IA
 
-Este template usa o formato `.opencode/` (commands + skills) compatível com o [OpenCode](https://github.com/nicholasgriffintn/opencode). Os skills também podem ser usados como referência para outras ferramentas de IA que suportem instruções em markdown, como:
+Este template suporta nativamente várias ferramentas de desenvolvimento assistido por IA, mantendo os arquivos `.opencode/` como **Single Source of Truth** e utilizando symlinks para garantir compatibilidade perfeita e sincronia das regras:
 
 - **Antigravity** — Use a pasta `.antigravity/` já configurada no template.
 - **Cursor** — Copie os skills para `.cursor/rules/`
 - **Windsurf** — Copie para `.windsurfrules/`
 - **Cline / Roo Code** — Use como instruções customizadas
-- **Claude Code** — Use o `AGENTS.md` como `CLAUDE.md`
 
 O conteúdo dos skills é agnóstico à ferramenta — são procedimentos sequenciais em markdown que qualquer LLM pode seguir.
 
