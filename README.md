@@ -188,6 +188,7 @@ Este template é pré-configurado para:
 
 Este template usa o formato `.opencode/` (commands + skills) compatível com o [OpenCode](https://github.com/nicholasgriffintn/opencode). Os skills também podem ser usados como referência para outras ferramentas de IA que suportem instruções em markdown, como:
 
+- **Antigravity** — Use a pasta `.antigravity/` já configurada no template.
 - **Cursor** — Copie os skills para `.cursor/rules/`
 - **Windsurf** — Copie para `.windsurfrules/`
 - **Cline / Roo Code** — Use como instruções customizadas
