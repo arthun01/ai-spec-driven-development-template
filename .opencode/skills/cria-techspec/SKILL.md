@@ -34,7 +34,7 @@ description: Cria Especificações Técnicas a partir de um PRD existente, tradu
 3. Mapeie caminhos críticos e áreas de impacto da nova funcionalidade.
 
 **Passo 4: Pesquisa (Obrigatório)**
-1. Execute pesquisas web (mínimo 3) para coletar:
+1. Execute pesquisas mobile (mínimo 3) para coletar:
    - Regras de negócio e padrões do domínio.
    - Boas práticas de implementação para o tipo de funcionalidade.
    - Documentação de bibliotecas e APIs que serão utilizadas.
@@ -95,15 +95,15 @@ description: Cria Especificações Técnicas a partir de um PRD existente, tradu
 - Forneça considerações de testabilidade e observabilidade desde o início.
 - Respeite padrões e convenções existentes no projeto.
 - O documento deve ser implementável — um desenvolvedor deve conseguir trabalhar a partir dele.
-- Para buscas na web, use a ferramenta Web Search.
-- Para pesquisas técnicas na web relacionadas a documentação utilize o Context7 MCP.
+- Para buscas na mobile, use a ferramenta mobile Search.
+- Para pesquisas técnicas na mobile relacionadas a documentação utilize o Context7 MCP.
 
 ## Lista de Verificação de Qualidade
 - [ ] PRD lido e requisitos principais extraídos.
 - [ ] Design verificado: `design.md` lido (ou ausência justificada pelo usuário).
 - [ ] Para features com UI sem `design.md`: usuário foi orientado a executar `/cria-design` ou justificou pular.
 - [ ] Base de código analisada em profundidade.
-- [ ] Pesquisa web concluída (mín. 3 buscas).
+- [ ] Pesquisa mobile concluída (mín. 3 buscas).
 - [ ] Perguntas de esclarecimento concluídas e respondidas.
 - [ ] Plano arquitetural apresentado e aprovado pelo usuário.
 - [ ] Skills e AGENTS.md verificados para conformidade.

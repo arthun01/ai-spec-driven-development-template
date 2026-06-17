@@ -16,7 +16,7 @@
 
 [Skills do projeto em `.opencode/skills/` que se aplicam a esta tarefa:
 - **[Skill]**: [Como esta tarefa está conforme]
-- **AGENTS.md**: [Convenções React, TypeScript, testes, etc.]]
+- **AGENTS.md**: [Convenções React Native, TypeScript, testes, etc.]]
 
 ## Subtarefas
 

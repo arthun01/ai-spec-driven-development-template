@@ -1,6 +1,6 @@
-# AI-SDD Template — React + Vite
+# AI-SDD Template — React Native + Expo
 
-> Template de desenvolvimento orientado por especificações com IA para projetos **React 18+ · TypeScript · Vite · Tailwind CSS · Zustand · React Query**.
+> Template de desenvolvimento orientado por especificações com IA para projetos **React Native · Expo · TypeScript · NativeWind · Zustand · React Query**.
 
 ---
 
@@ -170,17 +170,17 @@ Este template é pré-configurado para:
 
 | Tecnologia | Versão | Uso |
 |-----------|--------|-----|
-| React | 18+ | Framework UI |
+| React Native | — | Framework Mobile |
+| Expo | — | Plataforma / Dev Server |
 | TypeScript | 5+ | Linguagem |
-| Vite | — | Bundler / Dev Server |
-| Tailwind CSS | 3+ | Estilização |
+| NativeWind | 4+ | Estilização (Tailwind) |
 | Zustand | — | Gestão de Estado Global |
 | React Query | 5+ | Data Fetching / Caching |
-| React Router | 6+ | Roteamento |
-| Vitest / RTL | — | Testes Unitários e Componentes |
+| Expo Router | 3+ | Roteamento |
+| Jest / RNTL | — | Testes Unitários e Componentes |
 | ESLint | — | Linting |
 
-> Para usar com outra stack (ex: Next.js), adapte o `AGENTS.md`, os templates em `assets/` e as referências nos skills de execução (`executa-task`, `executa-review`).
+> Para usar com outra stack (ex: React Navigation puro ou React Native CLI), adapte o `AGENTS.md`, os templates em `assets/` e as referências nos skills de execução (`executa-task`, `executa-review`).
 
 ---
 

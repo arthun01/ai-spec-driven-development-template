@@ -62,7 +62,7 @@ DashboardPage
 
 - **Estado Local**: O que será mantido em `useState`/`useReducer`
 - **Estado Global**: O que será mantido no `Zustand`
-- **Server State**: O que será buscado/cacheado pelo `React Query`
+- **Server State**: O que será buscado/cacheado pelo `React Native Query`
 
 Exemplo:
 - Estado do modal de edição: Local (`isOpen`, `setIsOpen`)
@@ -71,7 +71,7 @@ Exemplo:
 
 ### Endpoints de API a Consumir
 
-[Liste os endpoints que a UI precisará chamar (via Axios/Fetch + React Query):
+[Liste os endpoints que a UI precisará chamar (via Axios/Fetch + React Native Query):
 
 | Método | Endpoint | Hook/Função | Descrição |
 |--------|----------|-------------|-----------|
@@ -93,7 +93,7 @@ Referencie requisitos do PRD (RF-XXX) quando aplicável.]
 
 ### Testes Unitários e Componentes
 
-[Estratégia de testes com Vitest + RTL:
+[Estratégia de testes com Expost + RTL:
 
 - **Componentes**: Comportamento visual, acessibilidade (queries RTL), interações (user-event)
 - **Hooks**: Lógica isolada (renderHook)
@@ -160,7 +160,7 @@ Referencie requisitos do PRD (RF-XXX) quando aplicável.]
 [Skills e padrões do projeto que se aplicam a esta spec:
 
 - **[Skill/Padrão]**: [Como esta spec está conforme] ou [Desvio: justificativa e alternativa]
-- **AGENTS.md**: [Conformidade com convenções React, TypeScript, Hooks, etc.]]
+- **AGENTS.md**: [Conformidade com convenções React Native, TypeScript, Hooks, etc.]]
 
 ### Arquivos Relevantes e Dependentes
 

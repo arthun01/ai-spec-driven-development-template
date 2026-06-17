@@ -1,17 +1,17 @@
 # Diretrizes de Desenvolvimento
 
 > [Descrição curta do projeto]
-> **React 18+ · TypeScript · Vite · Tailwind CSS · Zustand · React Query**
+> **React Native · Expo · TypeScript · NativeWind · Zustand · React Query**
 
 ## Stack
 
 - **Linguagem:** TypeScript
-- **Frontend:** React 18+, Vite, Tailwind CSS
+- **Frontend:** React Native, Expo, NativeWind (Tailwind para RN)
 - **Estado Global:** Zustand
 - **Data Fetching:** React Query (TanStack Query)
-- **Testes:** Vitest + React Testing Library
+- **Testes:** Jest + React Native Testing Library
 - **Linting/Formatação:** ESLint + Prettier
-- **Roteamento:** React Router (ou o roteador padrão do framework se usar Next.js futuramente)
+- **Roteamento:** Expo Router (ou React Navigation)
 
 ## Arquitetura
 
@@ -42,10 +42,9 @@ src/
 
 ```bash
 npm install      # Instalar dependências
-npm run dev      # Iniciar servidor de desenvolvimento (Vite)
-npm run build    # Compilar projeto para produção
+npx expo start   # Iniciar servidor de desenvolvimento (Expo)
 npm run lint     # Rodar ESLint
-npm run test     # Rodar suíte de testes (Vitest)
+npm run test     # Rodar suíte de testes (Jest)
 npm run typecheck# Checar tipos TypeScript
 ```
 

@@ -1,4 +1,4 @@
-# Padrões de Componentes React
+# Padrões de Componentes React Native
 
 ## 1. Functional Components
 Sempre utilize Functional Components. Class Components estão obsoletos e não devem ser utilizados na base de código atual.
@@ -40,8 +40,8 @@ Componentes de UI devem focar em renderização. Se um componente acumular muita
 export const UserDashboard = () => {
   const { user, loading, error, refresh } = useUserDashboard();
   
-  if (loading) return <Spinner />;
-  if (error) return <ErrorMessage error={error} />;
+  if (loading) return <ActivityIndicator />;
+  if (error) return <Text>{error.message}</Text>;
   
   return <UserView user={user} onRefresh={refresh} />;
 }
@@ -51,8 +51,8 @@ export const UserDashboard = () => {
 Evite aninhar condições JSX (`if/else` longos ou múltiplos ternários). Valide falhas, loading states e erros no topo do componente e faça um "early return".
 ```tsx
 // ✅ Certo
-if (!isAuthenticated) return <Redirect to="/login" />;
-if (isLoading) return <Loading />;
+if (!isAuthenticated) return <Redirect to="/login" />; // Ou navigate para React Navigation
+if (isLoading) return <ActivityIndicator />;
 return <MainContent />;
 ```
 

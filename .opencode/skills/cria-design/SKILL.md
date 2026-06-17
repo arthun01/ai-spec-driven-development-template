@@ -20,7 +20,7 @@ Você é um designer de produto e facilitador de processo, responsável por gara
 funcionalidade tenha um protótipo visual validado antes de virar Tech Spec.
 
 Esta skill é **agnóstica à ferramenta**: prefere o Paper Desktop (via MCP) por causa do pipeline
-integrado com React, mas suporta qualquer ferramenta externa (Figma, Sketch, Excalidraw,
+integrado com React Native, mas suporta qualquer ferramenta externa (Figma, Sketch, Excalidraw,
 screenshots, fotos de papel, descrição textual). O artefato gerado é sempre o mesmo —
 `design.md` — apenas o conteúdo de cada tela muda conforme a origem.
 
@@ -182,7 +182,7 @@ Após gerar/atualizar `design.md`, informe:
 | Skill | Relação |
 |-------|---------|
 | `design-in-paper` | Implementação canônica do modo Paper. Esta skill delega a ela e ela escreve em `design.md`. |
-| `paper-to-react` | Consome linhas com Origem = Paper em `design.md` para gerar componentes React (JSX). |
+| `paper-to-react` | Consome linhas com Origem = Paper em `design.md` para gerar componentes React Native (JSX). |
 | `mcp-paper` | Documentação canônica das tools do Paper MCP. |
 | `cria-prd` | Passo anterior — fornece os requisitos visuais. |
 | `cria-techspec` | Passo seguinte — lê `design.md` como referência. |

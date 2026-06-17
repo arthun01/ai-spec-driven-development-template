@@ -2,20 +2,20 @@
 name: design-in-paper
 description: >-
   Cria ou atualiza wireframes e designs de UI no Paper (paper.design) a partir
-  de um PRD existente. Gera artboards estruturados e React-ready (flex layouts,
+  de um PRD existente. Gera artboards estruturados e React Native-ready (flex layouts,
   tokens do design system, conteúdo real) para revisão humana antes da techspec.
   REQUER: Paper Desktop app rodando + MCP Paper configurado no editor.
   Use quando o usuário pedir "crie o design no Paper", "wireframe no Paper",
   "gere os artboards", "monte a UI no Paper a partir do PRD".
-  QUANDO NÃO: Use sem Paper disponível. Para converter design em código React
+  QUANDO NÃO: Use sem Paper disponível. Para converter design em código React Native
   (ver paper-to-react). Para criar o PRD (ver cria-prd).
   PRÉ-REQUISITO NO PIPELINE AI-SDD: após cria-prd, antes de cria-techspec.
 license: MIT
-compatibility: Paper Desktop app + Paper MCP, React 18+, Tailwind CSS
+compatibility: Paper Desktop app + Paper MCP, React Native 18+, NativeWind
 ---
 
-Você é um designer de produto especialista em criar wireframes estruturados para React no Paper.
-Cria artboards React-ready: estruturados com flex layouts, tokens do design system, conteúdo real.
+Você é um designer de produto especialista em criar wireframes estruturados para React Native no Paper.
+Cria artboards React Native-ready: estruturados com flex layouts, tokens do design system, conteúdo real.
 
 ## ⚠️ Pré-requisito Obrigatório
 
@@ -81,7 +81,7 @@ cria-techspec     ← usa artboards aprovados como referência
 
 1. Verifique se existe `src/index.css` ou equivalente contendo CSS Variables ou configurações Tailwind.
 2. Extraia tokens: cores primárias, tipografia, raios, sombras
-3. Se não existir, crie tokens genéricos usando padrões modernos do Tailwind CSS.
+3. Se não existir, crie tokens genéricos usando padrões modernos do NativeWind.
 
 ### Passo 3: Planejar Artboards
 
@@ -120,7 +120,7 @@ Para cada artboard aprovado:
 
 ### Passo 5: HTML para Paper — Regras Fundamentais
 
-O HTML escrito no Paper deve ser **otimizado para conversão React (JSX)**:
+O HTML escrito no Paper deve ser **otimizado para conversão React Native (JSX)**:
 
 ```html
 <!-- ✅ CORRETO: flex layouts, tokens CSS, sem classes mágicas -->
@@ -154,9 +154,9 @@ O HTML escrito no Paper deve ser **otimizado para conversão React (JSX)**:
 - Use **flex layouts** — não use grid CSS complexo (dificulta conversão)
 - Use **CSS Variables** do design system (`var(--color-primary)`, etc.)
 - Use **conteúdo real** — não Lorem Ipsum (extraia do PRD ou invente dados realistas)
-- **Nomeie as layers** com `rename_nodes` usando nomes semânticos React:
+- **Nomeie as layers** com `rename_nodes` usando nomes semânticos React Native:
   - `PageHeader`, `CardList`, `EmptyState`, `ModalOverlay`, etc.
-- Estruture como se fosse JSX: cada seção lógica é um componente React em potencial.
+- Estruture como se fosse JSX: cada seção lógica é um componente React Native em potencial.
 
 ### Passo 6: Padrões de Componentes por Tipo de Tela
 
@@ -242,7 +242,7 @@ Adicione uma linha na tabela `## Telas` para cada artboard com **Origem = Paper*
 | Skill | Relação |
 |-------|---------|
 | **`mcp-paper`** | Referência canônica de todas as tools do Paper MCP — parâmetros, retornos, exemplos e workflows compostos. Consulte para detalhes de qualquer tool. |
-| `paper-to-react` | Converte os artboards criados por esta skill em código React (JSX + Tailwind). |
+| `paper-to-react` | Converte os artboards criados por esta skill em código React Native (JSX + Tailwind). |
 | `cria-techspec` | Próximo passo no pipeline — usa os artboards aprovados como referência. |
 | `cria-prd` | Passo anterior no pipeline — fornece os requisitos funcionais usados aqui. |
 

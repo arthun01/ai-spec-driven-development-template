@@ -21,7 +21,7 @@ description: Realiza revisão de código de uma funcionalidade completa (PRD), v
 1. Leia o PRD em `./ai-sdd/prd-[feature-slug]/prd.md` — requisitos funcionais (RF-XXX).
 2. Leia a Tech Spec em `./ai-sdd/prd-[feature-slug]/techspec.md` — decisões arquiteturais.
 3. Leia as Tasks em `./ai-sdd/prd-[feature-slug]/tasks.md` — escopo e status das tarefas.
-4. Leia `AGENTS.md` para conhecer os padrões do projeto React.
+4. Leia `AGENTS.md` para conhecer os padrões do projeto React Native.
 5. NÃO pule este passo — o review é baseado na entrega do PRD.
 
 **Passo 3: Analisar Alterações de Código (Obrigatório)**
@@ -44,7 +44,7 @@ description: Realiza revisão de código de uma funcionalidade completa (PRD), v
 1. Compare a implementação com a Tech Spec:
    - Arquitetura de componentes implementada conforme especificado.
    - Gestão de estado (Zustand/Local) conforme definido.
-   - Endpoints de API consumidos (React Query) conforme documentado.
+   - Endpoints de API consumidos (React Native Query) conforme documentado.
    - Interfaces TypeScript aplicadas adequadamente.
 2. Registre desvios como problemas — indicando o que a Tech Spec esperava vs. o que foi implementado.
 

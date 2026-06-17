@@ -30,7 +30,7 @@ description: Cria Documentos de Requisitos de Produto (PRDs) a partir de solicit
 **Passo 3: Planejar o PRD (Obrigatório)**
 1. Crie um plano seção por seção do PRD, incluindo:
    - Abordagem para cada seção do template.
-   - Áreas que requerem pesquisa adicional (use Web Search para regras de negócio, padrões do setor, etc.).
+   - Áreas que requerem pesquisa adicional (use mobile Search para regras de negócio, padrões do setor, etc.).
    - Suposições feitas e dependências identificadas.
 2. Apresente o plano ao usuário para alinhamento.
 3. Aguarde aprovação do usuário antes de prosseguir para o Passo 4.

@@ -21,9 +21,9 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 7. NÃO pule nenhuma dessas leituras — a tarefa será invalidada sem contexto completo.
 
 **Passo 2: Carregar Skills e Padrões (Obrigatório)**
-1. Leia `AGENTS.md` para reforçar convenções, comandos e padrões React/TS.
+1. Leia `AGENTS.md` para reforçar convenções, comandos e padrões React Native/TS.
 2. Identifique regras em `.opencode/rules/` relevantes para as tecnologias da tarefa (components, hooks, state-management).
-3. Consulte as diretrizes em `.opencode/skills/vercel-react-best-practices/AGENTS.md` para otimizar a performance do React (data-fetching, renders, cache, etc).
+3. Consulte as diretrizes em `.opencode/skills/vercel-react-best-practices/AGENTS.md` para otimizar a performance do React Native (data-fetching, renders, cache, etc).
 4. Se alguma tela relevante à task tem Origem = Paper: carregue também `paper-to-react`.
 5. Consulte documentação de bibliotecas envolvidas quando necessário.
 
@@ -46,7 +46,7 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 **Passo 5: Implementação (Obrigatório)**
 1. Implemente seguindo o plano definido no Passo 4.
 2. Regras de implementação:
-   - Siga todos os padrões do `AGENTS.md` (React 18+, TypeScript, Vite, Tailwind CSS).
+   - Siga todos os padrões do `AGENTS.md` (React Native 18+, TypeScript, Expo, NativeWind).
    - Componentize adequadamente.
    - Implemente soluções de **causa raiz** — sem workarounds.
    - Prefira utilizar hooks customizados para separar lógica da UI.
@@ -58,8 +58,8 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 
 **Passo 6: Testes (Obrigatório)**
 1. Crie testes para toda funcionalidade implementada:
-   - **Componentes**: Testes com React Testing Library (RTL).
-   - **Hooks/Lógica**: Testes puros em Vitest ou `@testing-library/react`.
+   - **Componentes**: Testes com React Native Testing Library (RTL).
+   - **Hooks/Lógica**: Testes puros em Expost ou `@testing-library/react`.
    - **E2E**: Fluxos do usuário quando aplicável.
 2. Execute todos os testes: `npm run test` (ou equivalente).
 3. Todos os testes devem passar — corrija falhas antes de prosseguir.
@@ -97,7 +97,7 @@ description: Implementa tarefas de funcionalidades lendo o contexto do PRD/TechS
 - [ ] Rules e AGENTS.md consultados.
 - [ ] `design.md` lido; modo identificado por tela.
 - [ ] Plano de abordagem definido.
-- [ ] Implementação segue padrões React (Tipagem TS estrita, Componentização funcional, Tailwind).
+- [ ] Implementação segue padrões React Native (Tipagem TS estrita, Componentização funcional, Tailwind).
 - [ ] Implementação segue a Tech Spec.
 - [ ] Testes de UI/Hooks criados e passando.
 - [ ] `npm run lint` executado sem erros.

@@ -8,7 +8,7 @@ description: >-
   artboards, manipulação de nós, export de JSX/CSS/imagens.
   REQUER: Paper Desktop app rodando localmente (inicia o MCP server automaticamente).
   Use quando: qualquer interação com o Paper MCP for necessária.
-  QUANDO NÃO: para lógica pura de React sem Paper (ver outras skills).
+  QUANDO NÃO: para lógica pura de React Native sem Paper (ver outras skills).
   RELAÇÃO: esta skill é referenciada por design-in-paper e paper-to-react.
 license: MIT
 compatibility: Paper Desktop app + Paper MCP server (http://127.0.0.1:29979/mcp)
@@ -217,7 +217,7 @@ Retorna o JSX de um nó e todos os seus descendentes.
 |-------|---------|
 | **Parâmetros** | `id` (string) — ID do nó; `format` (string, opcional) — `"tailwind"` (padrão) ou `"inline-styles"` |
 | **Retorno** | Código JSX com classes Tailwind ou estilos inline, representando a árvore visual |
-| **Uso típico** | Conversão design → código; base para componentes React; entender layout e estilos |
+| **Uso típico** | Conversão design → código; base para componentes React Native; entender layout e estilos |
 | **Quando usar** | Principal tool da skill `paper-to-react`; quando precisa do código do design |
 
 ```
@@ -405,7 +405,7 @@ Exemplo de uso:
 - Use **estilos inline** (`style=`) — o Paper interpreta CSS inline
 - Use **CSS Variables** quando possível para tokens do design system
 - Use **conteúdo real** — não Lorem Ipsum
-- Estruture semanticamente — cada seção lógica é um partial potencial em React
+- Estruture semanticamente — cada seção lógica é um partial potencial em React Native
 
 ---
 
@@ -439,7 +439,7 @@ Renomeia uma ou mais layers (batch).
 |-------|---------|
 | **Parâmetros** | `updates` (array) — `[{ id: string, name: string }]` |
 | **Retorno** | Confirmação dos nós renomeados |
-| **Uso típico** | Organizar layers com nomes semânticos; preparar estrutura para conversão React |
+| **Uso típico** | Organizar layers com nomes semânticos; preparar estrutura para conversão React Native |
 | **Quando usar** | Após `write_html` para nomear layers semanticamente |
 
 ```
@@ -452,7 +452,7 @@ Exemplo de uso:
 ← { renamed: ["node_001", "node_002", "node_003"] }
 ```
 
-**Nomes semânticos padrão React:**
+**Nomes semânticos padrão React Native:**
 - `page-header`, `page-content`, `page-footer`
 - `card-list`, `card-item`, `card-detail`
 - `form-section`, `form-actions`
@@ -668,12 +668,12 @@ mesmo em caso de erro — caso contrário o indicador ficará preso.
 - **Verificação visual**: Capture `get_screenshot` após cada operação de escrita
 - **Confirme antes de deletar**: `delete_nodes` é irreversível — peça confirmação ao usuário
 
-### Estrutura de Design (para conversão React)
+### Estrutura de Design (para conversão React Native)
 
 - Use **flex layouts** (não grid CSS complexo)
 - Use **estilos inline** no HTML escrito via `write_html`
 - Use **conteúdo real** — nunca Lorem Ipsum
-- Nomeie layers com `rename_nodes` usando **nomes semânticos React**
+- Nomeie layers com `rename_nodes` usando **nomes semânticos React Native**
 - Estruture como partials potenciais: cada seção lógica = um partial
 
 ### Nomenclatura de Artboards

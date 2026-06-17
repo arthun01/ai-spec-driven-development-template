@@ -12,4 +12,4 @@ paths:
 - **Componentes:** Sempre escreva componentes funcionais. Componentes de classe não devem ser utilizados.
 - **Imports:** Mantenha a ordem de importações: 1. Bibliotecas externas (ex: `react`, `zustand`), 2. Componentes internos absolutos, 3. Imports relativos locais.
 - **Desestruturação:** Sempre desestruture props nos parâmetros da função do componente: `const Card = ({ title, children }: CardProps) => { ... }`.
-- **CSS e Estilização:** Utilize classes utilitárias do Tailwind CSS. Evite CSS inline (`style={{...}}`) a menos que seja um valor estritamente dinâmico (como cálculos de dimensões via JS).
+- **CSS e Estilização:** Utilize classes utilitárias do NativeWind (Tailwind CSS para React Native) ou `StyleSheet.create`. Evite estilos inline (`style={{...}}`) a menos que seja um valor estritamente dinâmico (como cálculos de dimensões via JS).
